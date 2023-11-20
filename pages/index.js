@@ -1,15 +1,23 @@
 import Seo from "@/components/Seo";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Home({ results }) {
-  // 데이터 랜더링
+  const router = useRouter();
+  const onClick = (id) => {
+    router.push(`/movies/${id}`);
+  };
 
   return (
     <div className="container">
       <Seo title="Home" />
 
       {results?.map((movie) => (
-        <Link href={`/movies/${movie.id}`} key={movie.id}>
+        <Link
+          onClick={() => onClick(movie.id)}
+          href={`/movies/${movie.id}`}
+          key={movie.id}
+        >
           <div className="movie" key={movie.id}>
             <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
             <h4>{movie.original_title}</h4>
@@ -45,13 +53,10 @@ export default function Home({ results }) {
 }
 
 export async function getServerSideProps() {
-  // server에서만 실행 됨
-
   const { results } = await (
     await fetch("http://localhost:3000/api/movies")
   ).json();
 
-  // props를 통해 page에 data 전달
   return {
     props: {
       results,
