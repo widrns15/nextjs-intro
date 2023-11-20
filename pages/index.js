@@ -5,16 +5,7 @@ import { useRouter } from "next/router";
 export default function Home({ results }) {
   const router = useRouter();
   const onClick = (id, title) => {
-    router.push(
-      {
-        pathname: `/movies/${id}`,
-        query: {
-          // url을 통해서 추가 정보를 담아 보냄
-          title,
-        },
-      },
-      `/movies/${id}` // 옵션 as로 url 브라우저 마스킹 가능
-    );
+    router.push(`/movies/${title}/${id}`);
   };
 
   return (
