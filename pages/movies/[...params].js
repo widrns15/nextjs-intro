@@ -7,10 +7,11 @@ export default function Detail({ params }) {
   const router = useRouter();
   const [title, id] = params || [];
   console.log(router);
+
   return (
     <div>
       <Seo title={title} />
-      <h4>{title}</h4>
+      <h4 style={{ textAlign: "center" }}>{title}</h4>
     </div>
   );
 }
